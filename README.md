@@ -2,7 +2,7 @@
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
 
 #### Scrip N°1 "Análisis archivos vectoriales"
-#####Direccionar espacio de trabajo
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 ```
