@@ -1,4 +1,4 @@
-##Webinar N°2
+## Webinar N°2
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
 
 #### Scrip N°1 "Análisis archivos vectoriales"
@@ -6,28 +6,28 @@ En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
 ```
 setwd("C:/Users/NOMBRE")
 ```
-#####instalar y activar librería "sp"
+##### instalar y activar librería "sp"
 ```
 install.packages(“sf”)
 library(sf)
 ```
-#####Cargar Shapefile Puntos
+##### Cargar Shapefile Puntos
 ```
 Puntos <- st_read("Punto.shp")
 ```
-#####Cargar Shapefile Lineas
+##### Cargar Shapefile Lineas
 ```
 Lineas <- st_read("Linea.shp")
 ```
-#####Calcula longitud
+##### Calcula longitud
 ```
 st_length(Lineas)
 ```
-#####Cargar Shapefile Pligono
+##### Cargar Shapefile Pligono
 ```
 Poligonos <- st_read("Poligono.shp")
 ```
-#####Calcular Area
+##### Calcular Area
 ```
 st_area(Poligonos)
 
@@ -38,186 +38,186 @@ plot(st_geometry(Puntos),add=TRUE)
 plot(st_geometry(Puntos) + c(0.5,0),add=TRUE,pch=c(49,50,51),cex=1)
 plot(st_geometry(Lineas),add=TRUE,lty=2,lwd = 2,col="red")
 ```
-#####Agrega el número de las líneas
+##### Agrega el número de las líneas
 ```
 text(5,5.5,"1",pos=4,col="red",cex=1)
 text(1.2,3,"2",pos=4,col="red",cex=1)
 text(7.8,6,"3",pos=4,col="red",cex=1)
 ```
 #### Scrip N°2 "Unión de base de datos con archivo vectorial"
-#####Direccionar espacio de trabajo
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 ```
-#####Activar librería
+##### Activar librería
 ```
 library(sf)
 ```
-#####Cargar Shapefile regiones
+##### Cargar Shapefile regiones
 ```
 Regiones <- st_read("Regional.shp")
 ```
-#####Ver sistema de referencia
+##### Ver sistema de referencia
 ```
 st_crs(Regiones)
 ```
-#####Atributos Shapefile
+##### Atributos Shapefile
 ```
 names(Regiones)
 ```
-#####Cálculos de atributos
+##### Cálculos de atributos
 ```
 summary(Regiones)
 ```
-#####Seleccionar regiones de la Zona Norte
+##### Seleccionar regiones de la Zona Norte
 ```
 ZonaNorte <- Regiones[Regiones$Region %in% c("Región de Arica y Parinacota", 
                       "Región de Atacama", "Región de Antofagasta", 
                       "Región de Tarapacá", "Región de Coquimbo"),]
 ```
-#####Plotear Zona Norte
+##### Plotear Zona Norte
 ```
 plot(st_geometry (ZonaNorte))
 ```
-#####Base de población Censo de Población 
+##### Base de población Censo de Población 
 ```
 Poblacion <- read.csv("Poblacion2.csv", sep = ";")
 ```
-#####Leer base de datos población
+##### Leer base de datos población
 ```
 head(Poblacion)
 ```
-#####Leer tabla de atributos shape Zona Norte
+##### Leer tabla de atributos shape Zona Norte
 ```
 head(ZonaNorte)
 ```
-#####Unir bases de datos
+##### Unir bases de datos
 ```
 ZonaNorte <- merge(ZonaNorte, Poblacion, by.x="Region", by.y="Region")
 ```
-#####Ver tabla de atributos
+##### Ver tabla de atributos
 ```
 ZonaNorte
 ```
 #### Scrip N°3 "Ejemplo análisis hidrológico"
-#####Direccionar espacio de trabajo
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 ```
-#####Activar librería
+##### Activar librería
 ```
 library(sf)
 library(rgdal)
 ```
-#####Cargar Shapefile Red Hídrgráfica
+##### Cargar Shapefile Red Hídrgráfica
 ```
 Hidro <- st_read("Red_Hidrografica.shp")
 ```
-#####Ver sistema de referencia
+##### Ver sistema de referencia
 ```
 st_crs(Hidro)
 ```
-#####Atributos
+##### Atributos
 ```
 names(Hidro)
 ```
-#####Ver Hidro
+##### Ver Hidro
 ```
 View(Hidro)
 ```
-#####Seleccionar la hidrología de la Región de Valparaíso
+##### Seleccionar la hidrología de la Región de Valparaíso
 ```
 HidroValp <- Hidro[Region = "Región de Valparaíso",]
 ```
-#####Seleccionar Comuna de Quintero
+##### Seleccionar Comuna de Quintero
 ```
 H.Quintero1 <- Hidro[Hidro$Comuna %in% c("Quintero"),]
 ```
-#####Plotear a comuna de Quintero
+##### Plotear a comuna de Quintero
 ```
 plot(st_geometry (H.Quintero1))
 ```
-#####Disolver la red hidrológica (para calcular su longitud)
+##### Disolver la red hidrológica (para calcular su longitud)
 ```H.Quintero2 <- st_collection_extract(H.Quintero1,type="LINESTRING")
 LongHidroQ <- st_length(H.Quintero1) / 1000 # km
 ```
-#####Leer tabla de atributos
+##### Leer tabla de atributos
 ```
 head(LongHidroQ)
 ```
-#####Área de influencia (200m)
+##### Área de influencia (200m)
 ```
 Buffer <- st_buffer(H.Quintero2,dist=200)
 ```
-#####Plotear Buffer
+##### Plotear Buffer
 ```
 plot(st_geometry(Buffer),axes=F)
 ```
-####Scrip N°4 "Raster"
-#####Direccionar espacio de trabajo
+#### Scrip N°4 "Raster"
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 ```
-#####Instalar y activar librería
+##### Instalar y activar librería
 ```
 install.packages(“raster”)
 library(raster)
 ```
-#####Crear matrices
+##### Crear matrices
 ```
 m1 <- matrix(c(1,1,2,2,1,1,2,2,1,1,3,3),ncol=4,nrow=3,byrow=TRUE)
 print(m1)
 m2 <- matrix(c(1,2,3,4,2,NA,2,2,3,4,3,1),ncol=4,nrow=3,byrow=TRUE)
 print(m2)
 ```
-#####Crear raster
+##### Crear raster
 ```
 r1 <- raster(m1)
 r2 <- raster(m2)
 ```
-#####Extención de localización (xmin, xmax, ymin, ymax)
+##### Extención de localización (xmin, xmax, ymin, ymax)
 ```
 extent(r1) <- extent(r2) <- extent(c(0,4,0,3))
 ```
-#####Asignar colores y plotear
+##### Asignar colores y plotear
 ```
 colortable(r1) <- c("lightblue","purple","lightgreen", "pink", "orange")
 plot(r1,axes=TRUE)
 colortable(r2) <- c("lightblue","purple","lightgreen", "pink", "orange")
 plot(r2,axes=TRUE)
 ```
-#####Propiedades del raster
+##### Propiedades del raster
 ```
 res(r1)
 res(r2)
 ```
-#####Álgebra de mapas
+##### Álgebra de mapas
 ```
 sum1 <- r1 + 2; print(as.matrix(sum1))
 sum2 <- r1 + 2*r2 ;print(as.matrix(sum2))
 ```
-#####Crear matriz
+##### Crear matriz
 ```
 m3 <- matrix(c(1,3,5,5,5,4,5,1,5,1,2,5),ncol=4,nrow=3,byrow=TRUE)
 print(m3)
 ```
-#####Crear raster
+##### Crear raster
 ```
 r3 <- raster(m3)
 ```
-#####Extención de localización (xmin, xmax, ymin, ymax)
+##### Extención de localización (xmin, xmax, ymin, ymax)
 ```
 extent(r3) <- extent(c(0,4,3,6))
 mosaico <- merge(r1,r3)
 extent(mosaico)
 plot(mosaico)
 ```
-####Scrip N°5 "Álegra de mapas"
-#####Direccionar espacio de trabajo
+#### Scrip N°5 "Álegra de mapas"
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 ```
-#####Instalar y activar librerías
+##### Instalar y activar librerías
 ```
 install.packages("raster")
 install.packages("rgdal")
@@ -228,42 +228,42 @@ library(rgdal)
 library(sf)
 library(maptools)
 ```
-#####Cargar Raster
+##### Cargar Raster
 ```
 AUrbana <- raster("aurb.tif")
 RedVial <- raster("redvial.tif")
 Hidrologia <- raster("hidro.tif")
 Geologia <- raster("geo.tif")
 ```
-#####Ver atributos de los raster
+##### Ver atributos de los raster
 ```
 AUrbana
 RedVial
 Hidrologia
 Geologia
 ```
-#####Unir raster
+##### Unir raster
 ```
 datos_raster = stack(AUrbana, RedVial, Hidrologia, Geologia)
 ```
-#####Sumar raster
+##### Sumar raster
 ```
 Sum_raster <- sum(datos_raster)
 plot(Sum_raster, col=colorRampPalette(c("red", "white", "blue", "yellow"))(255))
 ```
-#####Multiplicar raster
+##### Multiplicar raster
 ```
 Mult_raster <- AUrbana * RedVial * Hidrologia * Geologia
 plot(Mult_raster,col=colorRampPalette(c("red", "white", "blue", "yellow"))(255) )
 ```
 
-####Scrip N°6 "Machine learning"
-#####Direccionar espacio de trabajo
+#### Scrip N°6 "Machine learning"
+##### Direccionar espacio de trabajo
 ```
 setwd("C:/Users/NOMBRE")
 
 ```
-#####Instalar y activar librerias
+##### Instalar y activar librerias
 ```
 install.packages("raster")
 install.packages("sp")
@@ -294,12 +294,12 @@ library(caret)
 library(e1071)
 library(snow)
 ```
-#####Cargar las imagenes raster de 20 metros
+##### Cargar las imagenes raster de 20 metros
 ```
 B11_20 <- raster("B11_20m.jp2")
 B12_20 <- raster("B12_20m.jp2")
 ```
-#####Convertir raster de 20metros de pixel a 10metros de pixel y guardar
+##### Convertir raster de 20metros de pixel a 10metros de pixel y guardar
 ```
 B11_10m <- disaggregate(B11_20, fact=2) 
 
@@ -309,7 +309,7 @@ B12_10m <- disaggregate(B12_20, fact=2)
 
 writeRaster(B12_10m,"B12_10m.tif",driver="GeoTiff")
 ```
-#####Cargar bandas
+##### Cargar bandas
 ```
 B2 <- raster("B02_10m.jp2")
 B3 <- raster("B03_10m.jp2")
@@ -318,12 +318,12 @@ B8 <- raster("B08_10m.jp2")
 B11 <- raster("B11_10m.tif")
 B12 <- raster("B12_10m.tif")
 ```
-#####Leer Shapefile del area de estudio 
+##### Leer Shapefile del area de estudio 
 ```
 AEstudio <- readShapeSpatial("AreaEstudio.shp")
 plot(AEstudio)
 ```
-#####Cortar Raster
+##### Cortar Raster
 ```
 RasterClipB2 <- crop(B2, AEstudio)
 RasterClipB3 <- crop(B3, AEstudio)
@@ -339,18 +339,18 @@ CorteB8 <- mask(RasterClipB8, mask = AEstudio)
 CorteB11 <- mask(RasterClipB11, mask = AEstudio)
 CorteB12 <- mask(RasterClipB12, mask = AEstudio)
 ```
-#####Union y asignacion de nombres a las bandas
+##### Union y asignacion de nombres a las bandas
 ```
 Bandas <-stack(CorteB2, CorteB3, CorteB4, CorteB8, CorteB11, CorteB12)
 names(Bandas)<- c("Blue", "Green", "Red", "NIR", "Swir1", "Swir2")
 
 plot(Bandas)
 ```
-#####Guardar raster de bandas
+##### Guardar raster de bandas
 ```
 writeRaster(Bandas,"Bandas.tif",driver="GeoTiff")
 ```
-#####Calculo del NDVI (NIR - R)/(NIR + R)
+##### Calculo del NDVI (NIR - R)/(NIR + R)
 ```
 nir <- Bandas$NIR # Infrarojo cercano
 red <- Bandas$Red # Rojo
@@ -360,25 +360,25 @@ ndvi[ndvi>1] <- 1; ndvi[ndvi< (-1)] <- -1 #Reescalado para evitar outliers
 
 names(ndvi) <- "NDVI"
 ```
-#####Visualizacion NDVI guardada en el objeto ndvi_plot
+##### Visualizacion NDVI guardada en el objeto ndvi_plot
 ```
 ndvi_plot <- ggR(ndvi, geom_raster = TRUE,alpha = 1)+
   scale_fill_gradientn(colours = rev(terrain.colors(100)), 
                        name = "NDVI") + 
   theme(legend.positio = "bottom")
 ```
-#####Visualizacion falso color guardada en el objecto falso_color
+##### Visualizacion falso color guardada en el objecto falso_color
 ```
 falso_color_ndvi <- ggRGB(Bandas, r= "NIR" , g="Green" , b="Blue",
                           stretch = "lin")
 ```
-#####Representacion final
+##### Representacion final
 ```
 grid.arrange(ndvi_plot, falso_color_ndvi, ncol=2)
 
 writeRaster(ndvi,"NDVI.tif",driver="GeoTiff")
 ```
-#####Cálculo del NDBI (SWIR1 - NIR)/(SWIR1 + NIR)
+##### Cálculo del NDBI (SWIR1 - NIR)/(SWIR1 + NIR)
 ```
 nir <- Bandas$NIR # Infrarojo cercano
 swir1 <- Bandas$Swir1 # Swir1
@@ -388,44 +388,44 @@ ndbi[ui>1] <- 1; ndbi[ndbi< (-1)] <- -1 #Reescalado para evitar outliers
 
 names(ndbi) <- "NDBI"
 ```
-#####Visualización NDBI guardada en el objeto ndwi_plot
+##### Visualización NDBI guardada en el objeto ndwi_plot
 ```
 ndbi_plot <- ggR(ndbi, geom_raster = TRUE,alpha = 1)+
   scale_fill_gradientn(colours = rev(terrain.colors(100)), 
                        name = "NDBI") + 
   theme(legend.positio = "bottom")
 ```
-#####Visualización falso color guardada en el objecto falso_color
+##### Visualización falso color guardada en el objecto falso_color
 ```
 falso_color_ndbi <- ggRGB(Bandas, r= "NIR" , g="Green" , b="Blue",
                           stretch = "lin")
 ```
-#####Representación final
+##### Representación final
 ```
 grid.arrange(ndbi_plot, falso_color_ndbi, ncol=2)
 
 
 writeRaster(ndbi,"NDBI.tif",driver="GeoTiff")
 ```
-#####Union de bandas espectrales con los indices
+##### Union de bandas espectrales con los indices
 ```
 Bandas2 <- stack(Bandas,ndvi,ndbi)
 writeRaster(Bandas2,"Bandas_indices.tif",driver="GeoTiff")
 ```
-#####Cargar raster con las bandas e indices
+##### Cargar raster con las bandas e indices
 ```
 sentinel<- stack("Bandas_indices.tif")
 
 plot(sentinel)
 ```
-#####Cargar shapefile con los poligonos de control
+##### Cargar shapefile con los poligonos de control
 ```
 train <-readOGR("PControl.shp")
 plot(train)
 train
 names(train)
 ```
-#####Desagrupar y Seleccionar la muestra aleatoria de los poligonos de control por cada categoria
+##### Desagrupar y Seleccionar la muestra aleatoria de los poligonos de control por cada categoria
 ```
 AU <- subset(train, Tipo == "Zona construida")
 AU <- subset(AU[1:5,], Tipo == "Zona construida") 
@@ -439,12 +439,12 @@ SN <- subset(SN[1:5,], Tipo == "Suelo desnudo")
 CA <- subset(train, Tipo == "Cuerpo de agua")
 CA <- subset(CA[1:5,], Tipo == "Cuerpo de agua") 
 ```
-#####Volver a juntar los pol?gonos de cada categor?a
+##### Volver a juntar los pol?gonos de cada categor?a
 ```
 train <- bind(CA,SN,VG,AU)
 train
 ```
-#####Generar clasificacion supervisada con MLC
+##### Generar clasificacion supervisada con MLC
 ```
 beginCluster() 
 
@@ -454,22 +454,22 @@ supervised <- superClass(sentinel, trainData = train, polygonBasedCV = T, nSampl
 
 endCluster()
 ```
-#####Crear confusion matrix 
+##### Crear confusion matrix 
 ```
 getValidation(supervised, metrics = "caret")
 ```
-#####Asigar colores a las clasificaciones
+##### Asigar colores a las clasificaciones
 ```
 colors <- c("green","cyan", "chocolate4", "azure3")
 plot(supervised$map)
 ```
-#####Plotear
+##### Plotear
 ```
 plot(supervised$map, col = colors, legend = FALSE)
 legend(as.character(supervised$classMapping$class), x = "topleft", col = colors, title = "Classes",
        lwd = 5, bty = "n")
 ```
-#####Guardar Raster de la clasificacion
+##### Guardar Raster de la clasificacion
 ```
 writeRaster(supervised$map,"SuperClass_RF.tif",driver="GeoTiff")
 ```
