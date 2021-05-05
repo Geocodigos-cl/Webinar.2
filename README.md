@@ -449,9 +449,11 @@ train
 ```r
 beginCluster() 
 
-supervised <- superClass(sentinel, trainData = train, polygonBasedCV = T, nSamples = 3015, minDist = 1,
-                         responseCol = "Tipo", model="mlc", trainPartition = 0.80, 
-                         kfold = 4, verbose = T, mode = "classification", predict = TRUE) 
+supervised <- superClass(sentinel, trainData = train, polygonBasedCV = T, 
+              nSamples = 3015, minDist = 1, responseCol = "Tipo", 
+              model="mlc", trainPartition = 0.80,
+              kfold = 4, verbose = T, mode = "classification", 
+              predict = TRUE) 
 
 endCluster()
 ```
@@ -467,7 +469,8 @@ plot(supervised$map)
 ##### Plotear
 ```r
 plot(supervised$map, col = colors, legend = FALSE)
-legend(as.character(supervised$classMapping$class), x = "topleft", col = colors, title = "Classes",
+legend(as.character(supervised$classMapping$class), x = "topleft", 
+col = colors, title = "Classes",
        lwd = 5, bty = "n")
 ```
 ##### Guardar Raster de la clasificacion
