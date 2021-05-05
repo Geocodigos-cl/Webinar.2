@@ -3,20 +3,20 @@ En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
 
 #### Scrip N°1 "Análisis archivos vectoriales"
 ##### Direccionar espacio de trabajo
-```
+```r
 setwd("C:/Users/NOMBRE")
 ```
 ##### instalar y activar librería "sp"
-```
+```r
 install.packages(“sf”)
 library(sf)
 ```
 ##### Cargar Shapefile Puntos
-```
+```r
 Puntos <- st_read("Punto.shp")
 ```
 ##### Cargar Shapefile Lineas
-```
+```r
 Lineas <- st_read("Linea.shp")
 ```
 ##### Calcula longitud
