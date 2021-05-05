@@ -460,17 +460,17 @@ endCluster()
 getValidation(supervised, metrics = "caret")
 ```
 ##### Asigar colores a las clasificaciones
-```
+```r
 colors <- c("green","cyan", "chocolate4", "azure3")
 plot(supervised$map)
 ```
 ##### Plotear
-```
+```r
 plot(supervised$map, col = colors, legend = FALSE)
 legend(as.character(supervised$classMapping$class), x = "topleft", col = colors, title = "Classes",
        lwd = 5, bty = "n")
 ```
 ##### Guardar Raster de la clasificacion
-```
+```r
 writeRaster(supervised$map,"SuperClass_RF.tif",driver="GeoTiff")
 ```
