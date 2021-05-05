@@ -10,7 +10,7 @@ Puntos <- st_read("Punto.shp")
 #Cargar Shapefile Lineas
 Lineas <- st_read("Linea.shp")
 
-# Calcula longitud
+#Calcula longitud
 st_length(Lineas)
 
 #Cargar Shapefile Pligono
@@ -25,6 +25,7 @@ plot(Poligonos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink",
 plot(st_geometry(Puntos),add=TRUE)
 plot(st_geometry(Puntos) + c(0.5,0),add=TRUE,pch=c(49,50,51),cex=1)
 plot(st_geometry(Lineas),add=TRUE,lty=2,lwd = 2,col="red")
+
 # agrega el número de las líneas
 text(5,5.5,"1",pos=4,col="red",cex=1)
 text(1.2,3,"2",pos=4,col="red",cex=1)

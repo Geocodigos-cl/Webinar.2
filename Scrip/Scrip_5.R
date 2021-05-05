@@ -1,4 +1,8 @@
-#Activar librerías
+#Instalar y activar librerías
+install.packages("raster")
+install.packages("rgdal")
+install.packages("sf")
+install.packages("maptools")
 library(raster)
 library(rgdal)
 library(sf)
