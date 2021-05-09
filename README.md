@@ -1,7 +1,7 @@
 ## Webinar N°2
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
 
-#### Scrip N°1 "Análisis archivos vectoriales"
+#### Script N°1 "Análisis archivos vectoriales"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -44,7 +44,7 @@ text(5,5.5,"1",pos=4,col="red",cex=1)
 text(1.2,3,"2",pos=4,col="red",cex=1)
 text(7.8,6,"3",pos=4,col="red",cex=1)
 ```
-#### Scrip N°2 "Unión de base de datos con archivo vectorial"
+#### Script N°2 "Unión de base de datos con archivo vectorial"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -99,7 +99,7 @@ ZonaNorte <- merge(ZonaNorte, Poblacion, by.x="Region", by.y="Region")
 ```r
 ZonaNorte
 ```
-#### Scrip N°3 "Ejemplo análisis hidrológico"
+#### Script N°3 "Ejemplo análisis hidrológico"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -213,7 +213,7 @@ mosaico <- merge(r1,r3)
 extent(mosaico)
 plot(mosaico)
 ```
-#### Scrip N°5 "Álegra de mapas"
+#### Script N°5 "Álegra de mapas"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -258,7 +258,7 @@ Mult_raster <- AUrbana * RedVial * Hidrologia * Geologia
 plot(Mult_raster,col=colorRampPalette(c("red", "white", "blue", "yellow"))(255) )
 ```
 
-#### Scrip N°6 "Machine learning"
+#### Script N°6 "Machine learning"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
