@@ -1,5 +1,6 @@
 ## Webinar N°2
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
+En el siguiente link (https://drive.google.com/drive/folders/1C8UxSV7bQzPTtq8ln-DKNUvuKa72x5pY?usp=sharing) se encuentran los insumos necenesarios para poder desarrollar de manera autónoma lo expuesto en los siguientes scripts:
 
 #### Script N°1 "Análisis archivos vectoriales"
 ##### Direccionar espacio de trabajo
@@ -154,7 +155,7 @@ Buffer <- st_buffer(H.Quintero2,dist=200)
 ```r
 plot(st_geometry(Buffer),axes=F)
 ```
-#### Scrip N°4 "Raster"
+#### Script N°4 "Raster"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
