@@ -1,6 +1,6 @@
 ## Webinar N°2
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
-En el siguiente link (https://drive.google.com/drive/folders/1C8UxSV7bQzPTtq8ln-DKNUvuKa72x5pY?usp=sharing) se encuentran los insumos necenesarios para poder desarrollar de manera autónoma lo expuesto en los siguientes scripts:
+En el siguiente [link](https://drive.google.com/drive/folders/1C8UxSV7bQzPTtq8ln-DKNUvuKa72x5pY?usp=sharing) se encuentran los materiales necenesarios para que ustedes puedan desarrollar lo expuesto en los siguientes scripts:
 
 #### Script N°1 "Análisis archivos vectoriales"
 ##### Direccionar espacio de trabajo
