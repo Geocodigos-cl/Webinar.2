@@ -1,7 +1,8 @@
 ## Webinar N°2
 En este webinar se verá el geoprocesamiento de archivos vectoriales y raster.
+En el siguiente [link](https://drive.google.com/drive/folders/1C8UxSV7bQzPTtq8ln-DKNUvuKa72x5pY?usp=sharing) se encuentran los materiales necenesarios para que ustedes puedan desarrollar lo expuesto en los siguientes scripts:
 
-#### Scrip N°1 "Análisis archivos vectoriales"
+#### Script N°1 "Análisis archivos vectoriales"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -44,7 +45,7 @@ text(5,5.5,"1",pos=4,col="red",cex=1)
 text(1.2,3,"2",pos=4,col="red",cex=1)
 text(7.8,6,"3",pos=4,col="red",cex=1)
 ```
-#### Scrip N°2 "Unión de base de datos con archivo vectorial"
+#### Script N°2 "Unión de base de datos con archivo vectorial"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -99,7 +100,7 @@ ZonaNorte <- merge(ZonaNorte, Poblacion, by.x="Region", by.y="Region")
 ```r
 ZonaNorte
 ```
-#### Scrip N°3 "Ejemplo análisis hidrológico"
+#### Script N°3 "Ejemplo análisis hidrológico"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -154,7 +155,7 @@ Buffer <- st_buffer(H.Quintero2,dist=200)
 ```r
 plot(st_geometry(Buffer),axes=F)
 ```
-#### Scrip N°4 "Raster"
+#### Script N°4 "Raster"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -213,7 +214,7 @@ mosaico <- merge(r1,r3)
 extent(mosaico)
 plot(mosaico)
 ```
-#### Scrip N°5 "Álegra de mapas"
+#### Script N°5 "Álegra de mapas"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -258,7 +259,7 @@ Mult_raster <- AUrbana * RedVial * Hidrologia * Geologia
 plot(Mult_raster,col=colorRampPalette(c("red", "white", "blue", "yellow"))(255) )
 ```
 
-#### Scrip N°6 "Machine learning"
+#### Script N°6 "Machine learning"
 ##### Direccionar espacio de trabajo
 ```r
 setwd("C:/Users/NOMBRE")
@@ -476,4 +477,32 @@ col = colors, title = "Classes",
 ##### Guardar Raster de la clasificacion
 ```r
 writeRaster(supervised$map,"SuperClass_RF.tif",driver="GeoTiff")
+```
+#### Script N°7 "Lidar"
+##### Instalar y activar librería "gstat" y "lidR"
+```r
+install.packages("gstat")
+install.packages("lidR")
+library (gstat)
+library (lidR)
+```
+##### crear un modelo de terreno digital (MDT) a partir de un conjunto de puntos terrestres utilizando diferentes métodos de interpolación
+```r
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+lidar = readLAS(LASfile)
+plot(lidar)
+```
+##### Método para crear MDT
+```r
+dtm1 = grid_terrain(lidar, algorithm = tin(), res = 0.5)
+```
+##### Ploteado 3D
+```r
+plot(dtm1)
+plot_dtm3d(dtm1)
+```
+##### Crear "canopy surface model"
+```r
+dsm1 <- grid_canopy(lidar, res = 0.5, pitfree(c(0,2,5,10,15), c(0, 1.5)))
+plot(dsm1)
 ```
