@@ -485,24 +485,24 @@ install.packages("gstat")
 install.packages("lidR")
 library (gstat)
 library (lidR)
-```r
+```
 ##### crear un modelo de terreno digital (MDT) a partir de un conjunto de puntos terrestres utilizando diferentes métodos de interpolación
 ```r
 LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
 lidar = readLAS(LASfile)
 plot(lidar)
-```r
+```
 ##### Método para crear MDT
 ```r
 dtm1 = grid_terrain(lidar, algorithm = tin(), res = 0.5)
-```r
+```
 ##### Ploteado 3D
 ```r
 plot(dtm1)
 plot_dtm3d(dtm1)
-```r
+```
 ##### Crear "canopy surface model"
 ```r
 dsm1 <- grid_canopy(lidar, res = 0.5, pitfree(c(0,2,5,10,15), c(0, 1.5)))
 plot(dsm1)
-```r
+```
