@@ -20,3 +20,4 @@ plot_dtm3d(dtm1)
 dsm1 <- grid_canopy(lidar, res = 0.5, pitfree(c(0,2,5,10,15), c(0, 1.5)))
 plot(dsm1)
 
+
