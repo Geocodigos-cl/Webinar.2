@@ -34,7 +34,8 @@ st_area(Poligonos)
 ```
 ##### Ploteado de archivos vectoriales
 ```r
-plot(Poligonos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink",                            "Magenta", "Orange"))
+plot(Poligonos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink",                            
+                           "Magenta", "Orange"))
 plot(Puntos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink", 
                            "Magenta", "Orange"))
 plot(Lineas["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink", 
