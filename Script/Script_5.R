@@ -1,4 +1,7 @@
-#Instalar y activar librerías
+#Establecer el directorio
+setwd("C:/Users/Catalina/Desktop/Webinar2")
+
+#Instalar y activar librerias
 install.packages("raster")
 install.packages("rgdal")
 install.packages("sf")
@@ -7,9 +10,6 @@ library(raster)
 library(rgdal)
 library(sf)
 library(maptools)
-
-#Establecer el directorio
-setwd("C:/Users/Catalina/Desktop/Ejemplos Rstudio")
 
 #Cargar Raster
 AUrbana <- raster("aurb.tif")
@@ -33,3 +33,4 @@ plot(Sum_raster, col=colorRampPalette(c("red", "white", "blue", "yellow"))(255))
 #Multiplicar raster
 Mult_raster <- AUrbana * RedVial * Hidrologia * Geologia
 plot(Mult_raster,col=colorRampPalette(c("red", "white", "blue", "yellow"))(255) )
+

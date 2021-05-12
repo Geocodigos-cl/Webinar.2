@@ -31,19 +31,14 @@ Poligonos <- st_read("Poligono.shp")
 ##### Calcular Area
 ```r
 st_area(Poligonos)
-
-plot(Poligonos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink", 
-                           "Magenta", "Orange"))
-
-plot(st_geometry(Puntos),add=TRUE)
-plot(st_geometry(Puntos) + c(0.5,0),add=TRUE,pch=c(49,50,51),cex=1)
-plot(st_geometry(Lineas),add=TRUE,lty=2,lwd = 2,col="red")
 ```
-##### Agrega el número de las líneas
+##### Ploteado de archivos vectoriales
 ```r
-text(5,5.5,"1",pos=4,col="red",cex=1)
-text(1.2,3,"2",pos=4,col="red",cex=1)
-text(7.8,6,"3",pos=4,col="red",cex=1)
+plot(Poligonos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink",                            "Magenta", "Orange"))
+plot(Puntos["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink", 
+                           "Magenta", "Orange"))
+plot(Lineas["Id"],col=c("Dark Green","Blue","grey","white", "Cyan", "Pink", 
+                           "Magenta", "Orange"))
 ```
 #### Script N°2 "Unión de base de datos con archivo vectorial"
 ##### Direccionar espacio de trabajo
@@ -156,10 +151,6 @@ Buffer <- st_buffer(H.Quintero2,dist=200)
 plot(st_geometry(Buffer),axes=F)
 ```
 #### Script N°4 "Raster"
-##### Direccionar espacio de trabajo
-```r
-setwd("C:/Users/NOMBRE")
-```
 ##### Instalar y activar librería
 ```r
 install.packages("raster")
@@ -476,7 +467,7 @@ col = colors, title = "Classes",
 ```
 ##### Guardar Raster de la clasificacion
 ```r
-writeRaster(supervised$map,"SuperClass_RF.tif",driver="GeoTiff")
+writeRaster(supervised$map,"SuperClass_MLC.tif",driver="GeoTiff")
 ```
 #### Script N°7 "Lidar"
 ##### Instalar y activar librería "gstat" y "lidR"

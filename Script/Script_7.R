@@ -1,4 +1,4 @@
-# Instalar y activar librería "gstat" y "lidR"
+# Instalar y activar librerías
 install.packages("gstat")
 install.packages("lidR")
 library (gstat)

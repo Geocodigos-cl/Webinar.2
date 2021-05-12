@@ -1,7 +1,5 @@
-#Direccionar espacio de trabajo
-setwd("C:/Users/Catalina/Desktop/ejemplos R")
-
-#Activar librería
+#Instslar y activar libreria
+install.packages("raster")
 library(raster)
 
 #Crear matrices
@@ -15,7 +13,7 @@ print(m2)
 r1 <- raster(m1)
 r2 <- raster(m2)
 
-#Extención de localización (xmin, xmax, ymin, ymax)
+#Extencion de localizacion (xmin, xmax, ymin, ymax)
 extent(r1) <- extent(r2) <- extent(c(0,4,0,3))
 
 #Asignar colores y plotear
@@ -29,7 +27,7 @@ plot(r2,axes=TRUE)
 res(r1)
 res(r2)
 
-#Álgebra de mapas
+#?lgebra de mapas
 sum1 <- r1 + 2; print(as.matrix(sum1))
 sum2 <- r1 + 2*r2 ;print(as.matrix(sum2))
 
@@ -40,7 +38,7 @@ print(m3)
 #Crear raster
 r3 <- raster(m3)
 
-#Extención de localización (xmin, xmax, ymin, ymax)
+#Extencion de localizacion (xmin, xmax, ymin, ymax)
 extent(r3) <- extent(c(0,4,3,6))
 mosaico <- merge(r1,r3)
 extent(mosaico)

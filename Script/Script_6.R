@@ -1,4 +1,18 @@
-#Cargar Librer?as
+#Instalar y cargar librerias
+install.packages("raster")
+install.packages("sp")
+install.packages("reshape2")
+install.packages("RStoolbox")
+install.packages("randomForest")
+install.packages("ggplot2")
+install.packages("maptools")
+install.packages("rgdal")
+install.packages("rgeos")
+install.packages("gridExtra")
+install.packages("RColorBrewer")
+install.packages("caret")
+install.packages("e1071")
+install.packages("snow")
 library(raster)
 library(sp)
 library(reshape2)
@@ -14,26 +28,21 @@ library(caret)
 library(e1071)
 library(snow)
 
-################################################################################################
 #Establecer el directorio
-setwd("C:/Users/Catalina/Desktop/Archivos Webinar/SuperClass")
-
-################################################################################################
+setwd("C:/Users/Catalina/Desktop/Webinar2")
 
 #Cargar las imagenes raster de 20 metros
 B11_20 <- raster("B11_20m.jp2")
 B12_20 <- raster("B12_20m.jp2")
 
 #Convertir raster de 20metros de pixel a 10metros de pixel
-B11_10m <- disaggregate(B11_20, fact=2) #Reducir de 20metros a 10metros la resoluci?n de pixel
+B11_10m <- disaggregate(B11_20, fact=2) #Reducir de 20metros a 10metros la resolucion de pixel
 
 writeRaster(B11_10m,"B11_10m.tif",driver="GeoTiff") #Guardar nuevo raster
 
-B12_10m <- disaggregate(B12_20, fact=2) #Reducir de 20metros a 10metros la resoluci?n de pix
+B12_10m <- disaggregate(B12_20, fact=2) #Reducir de 20metros a 10metros la resolucion de pix
 
 writeRaster(B12_10m,"B12_10m.tif",driver="GeoTiff")#Guardar nuevo raster
-
-################################################################################################
 
 #Cargar bandas 
 B2 <- raster("B02_10m.jp2")
@@ -43,7 +52,7 @@ B8 <- raster("B08_10m.jp2")
 B11 <- raster("B11_10m.tif")
 B12 <- raster("B12_10m.tif")
 
-#Leer Shapefile del ?rea de estudio 
+#Leer Shapefile del area de estudio 
 AEstudio <- readShapeSpatial("AreaEstudio.shp")
 plot(AEstudio)
 
@@ -62,7 +71,7 @@ CorteB8 <- mask(RasterClipB8, mask = AEstudio)
 CorteB11 <- mask(RasterClipB11, mask = AEstudio)
 CorteB12 <- mask(RasterClipB12, mask = AEstudio)
 
-#Uni?n y asignaci?n de nombres a las bandas
+#Union y asignacion de nombres a las bandas
 Bandas <-stack(CorteB2, CorteB3, CorteB4, CorteB8, CorteB11, CorteB12)
 names(Bandas)<- c("Blue", "Green", "Red", "NIR", "Swir1", "Swir2")
 
@@ -71,9 +80,7 @@ plot(Bandas)
 #guardar raster de bandas
 writeRaster(Bandas,"Bandas.tif",driver="GeoTiff")
 
-################################################################################################
-
-#C?lculo del NDVI (NIR - R)/(NIR + R)
+#Calculo del NDVI (NIR - R)/(NIR + R)
 nir <- Bandas$NIR # Infrarojo cercano
 red <- Bandas$Red # Rojo
 
@@ -82,26 +89,24 @@ ndvi[ndvi>1] <- 1; ndvi[ndvi< (-1)] <- -1 #Reescalado para evitar outliers
 
 names(ndvi) <- "NDVI"
 
-#Visualizaci?n NDVI guardada en el objeto ndvi_plot
+#Visualizacion NDVI guardada en el objeto ndvi_plot
 ndvi_plot <- ggR(ndvi, geom_raster = TRUE,alpha = 1)+
   scale_fill_gradientn(colours = rev(terrain.colors(100)), 
                        name = "NDVI") + 
   theme(legend.positio = "bottom")
 
 
-#Visualizaci?n falso color guardada en el objecto falso_color
+#Visualizacion falso color guardada en el objecto falso_color
 falso_color_ndvi <- ggRGB(Bandas, r= "NIR" , g="Green" , b="Blue",
                           stretch = "lin")
 
-#Representaci?n final
+#Representacion final
 grid.arrange(ndvi_plot, falso_color_ndvi, ncol=2)
 
 
 writeRaster(ndvi,"NDVI.tif",driver="GeoTiff")
 
-################################################################################################
-
-#Cálculo del NDBI (SWIR1 - NIR)/(SWIR1 + NIR)
+#Calculo del NDBI (SWIR1 - NIR)/(SWIR1 + NIR)
 nir <- Bandas$NIR # Infrarojo cercano
 swir1 <- Bandas$Swir1 # Swir1
 
@@ -110,76 +115,69 @@ ndbi[ui>1] <- 1; ndbi[ndbi< (-1)] <- -1 #Reescalado para evitar outliers
 
 names(ndbi) <- "NDBI"
 
-#Visualización NDBI guardada en el objeto ndwi_plot
+#Visualizacion NDBI guardada en el objeto ndwi_plot
 ndbi_plot <- ggR(ndbi, geom_raster = TRUE,alpha = 1)+
   scale_fill_gradientn(colours = rev(terrain.colors(100)), 
                        name = "NDBI") + 
   theme(legend.positio = "bottom")
 
 
-#Visualización falso color guardada en el objecto falso_color
+#Visualizacion falso color guardada en el objecto falso_color
 falso_color_ndbi <- ggRGB(Bandas, r= "NIR" , g="Green" , b="Blue",
                           stretch = "lin")
 
-#Representación final
+#Representacion final
 grid.arrange(ndbi_plot, falso_color_ndbi, ncol=2)
 
 
 writeRaster(ndbi,"NDBI.tif",driver="GeoTiff")
 
-################################################################################################
-
-#Uni?n de bandas espectrales con los ?ndices
+#Union de bandas espectrales con los indices
 Bandas2 <- stack(Bandas,ndvi,ndbi)
 writeRaster(Bandas2,"Bandas_indices.tif",driver="GeoTiff")
 
-################################################################################################
-
-#Cargar raster con las bandas e ?ndices
+#Cargar raster con las bandas e indices
 sentinel<- stack("Bandas_indices.tif")
 #plot(sentinel)
 
-#Cargar shapefile con los pol?gonos de control
+#Cargar shapefile con los poligonos de control
 train <-readOGR("PControl.shp")
 plot(train)
 train
 names(train)
 
-################################################################################################
-
-#Desagrupar y Seleccionar la muestra aleatoria de los pol?gonos de control por cada categor?a
+#Desagrupar y Seleccionar la muestra aleatoria de los poligonos de control por cada categoria
 AU <- subset(train, Tipo == "Zona construida")
-AU <- subset(AU[1:5,], Tipo == "Zona construida") #5 del total de los pol?gonos sera?n considerados
+AU <- subset(AU[1:5,], Tipo == "Zona construida") #5 del total de los poligonos seran considerados
 
 VG <- subset(train, Tipo == "Area verde")
-VG <- subset(VG[1:5,], Tipo == "Area verde") #5 del total de los pol?gonos sera?n considerados
+VG <- subset(VG[1:5,], Tipo == "Area verde") #5 del total de los poligonos seran considerados
 
 SN <- subset(train, Tipo == "Suelo desnudo")
-SN <- subset(SN[1:5,], Tipo == "Suelo desnudo") #5 del total de los pol?gonos sera?n considerados
+SN <- subset(SN[1:5,], Tipo == "Suelo desnudo") #5 del total de los poligonos seran considerados
 
 CA <- subset(train, Tipo == "Cuerpo de agua")
-CA <- subset(CA[1:5,], Tipo == "Cuerpo de agua") #5 del total de los pol?gonos sera?n considerados
+CA <- subset(CA[1:5,], Tipo == "Cuerpo de agua") #5 del total de los poligonos seran considerados
 
-#Volver a juntar los pol?gonos de cada categor?a
+#Volver a juntar los poligonos de cada categoria
 train <- bind(CA,SN,VG,AU)
 train
 
-################################################################################################
-
-#Generar clasificaci?n supervisada con MLC
+#Generar clasificacion supervisada con MLC
 beginCluster() 
 
-supervised <- superClass(sentinel, trainData = train, polygonBasedCV = T, nSamples = 3015, minDist = 1,
-                         responseCol = "Tipo", model="mlc", trainPartition = 0.80, 
-                         kfold = 4, verbose = T, mode = "classification", predict = TRUE) 
+supervised <- superClass(sentinel, trainData = train, polygonBasedCV = T, 
+                         nSamples = 3015, minDist = 1,
+                         responseCol = "Tipo", model="mlc", 
+                         trainPartition = 0.80, 
+                         kfold = 4, verbose = T, mode = "classification", 
+                         predict = TRUE) 
 
 endCluster()
 
 
 #Crear confusion matrix 
 getValidation(supervised, metrics = "caret")
-
-################################################################################################
 
 
 #Asigar colores a las clasificaciones
@@ -191,6 +189,6 @@ plot(supervised$map, col = colors, legend = FALSE)
 legend(as.character(supervised$classMapping$class), x = "topleft", col = colors, title = "Classes",
        lwd = 5, bty = "n")
 
-
 #Guardar Raster
-writeRaster(supervised$map,"SuperClass_RF.tif",driver="GeoTiff")
+writeRaster(supervised$map,"SuperClass_MLC.tif",driver="GeoTiff")
+
